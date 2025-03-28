@@ -1,6 +1,6 @@
 {
   "name": "vn-ui",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -13,7 +13,8 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "prepare": "husky",
-    "changelog": "standard-version"
+    "changelog": "standard-version",
+    "release": "bumpp --commit --push --tag"
   },
   "dependencies": {
     "vue": "^3.5.13"
