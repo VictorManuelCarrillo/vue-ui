@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Verifica si hay commits nuevos desde el último tag
+if git diff --quiet HEAD $(git describe --tags --abbrev=0 2>/dev/null); then
+  echo "🔹 No hay commits nuevos desde el último tag. Saltando changelog."
+  exit 0
+fi
+
+echo "🚀 Generando changelog con Standard Version..."
+pnpm exec standard-version --skip.bump --skip.tag --skip.commit
+
+# Si el changelog cambió, agrégalo y haz un commit
+if [ -n "$(git status --porcelain CHANGELOG.md)" ]; then
+  git add CHANGELOG.md
+  git commit -m "chore: update changelog"
+fi
+
+# Subimos los cambios con los tags
+git push --follow-tags
+
+# Ejecutamos bumpp después del push
+if [ $? -eq 0 ]; then
+  echo "🚀 Ejecutando bumpp..."
+  pnpm bumpp
+fi

@@ -13,7 +13,7 @@
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
     "prepare": "husky",
-    "changelog": "standard-version",
+    "changelog": "standard-version --skip.bump --skip.tag --skip.commit",
     "release": "bumpp --commit --push --tag"
   },
   "dependencies": {
